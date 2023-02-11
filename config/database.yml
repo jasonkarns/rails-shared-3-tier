@@ -5,15 +5,16 @@
 #   gem "sqlite3"
 #
 shared:
-  adapter: sqlite3
-  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  timeout: 5000
+  primary:
+    adapter: sqlite3
+  replica:
+    adapter: mysql
 
 development:
   primary:
     database: db/development.sqlite3
   replica:
-    database: db/development-replica.sqlite3
+    database: replica_development
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -22,10 +23,10 @@ test:
   primary:
     database: db/test.sqlite3
   replica:
-    database: db/test-replica.sqlite3
+    database: replica_test
 
 production:
   primary:
     database: db/production.sqlite3
   replica:
-    database: db/production-replica.sqlite3
+    database: replica_production
